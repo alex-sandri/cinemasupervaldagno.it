@@ -11,12 +11,12 @@ interface Event {
   EventId: number;
   Title: string;
   Description: string;
+  Actors: string;
   Director: string;
   Picture: string;
   Year: string;
   Category: string;
   MovieId: string;
-  TitleId: string;
   Days: EventDay[];
 }
 
@@ -28,10 +28,6 @@ interface EventDay {
 interface EventDayPerformance {
   PerformanceId: number;
   Time: string;
-  Screen: string;
-  ScreenId: number;
-  StartTime: string;
-  EndTime: string;
   Duration: number;
 }
 
@@ -78,17 +74,51 @@ export default async function HomePage() {
 function Event({ event }: { event: Event }) {
   const purchaseUrl = `${config.baseUrl}/angwt/webtic.aspx?pu=aHR0cHM6Ly93d3cud2VidGljLml0LyMvc2hvcHBpbmc/YWN0aW9uPWxvYWRMb2NhbCZsb2NhbElkPTU0MTU=&rnd=0.9282734738010057&lng=it&lid=${config.localId}&tpl=blue&lvs=bnVsbA==&kid=${config.trackId}#/event/it/${config.trackId}/${config.localId}/${event.EventId}`;
 
+  const formatDuration = (duration: number) => {
+    const hours = Math.trunc(duration / 60);
+    const minutes = duration % 60;
+
+    const parts = [];
+
+    if (hours > 0) {
+      parts.push(`${hours}h`);
+    }
+
+    if (minutes > 0) {
+      parts.push(`${minutes}m`);
+    }
+
+    return parts.join(' ');
+  };
+
   return (
     <div className='Event'>
-      <img
-        src={`${config.baseUrl}/angwt/${event.Picture}`}
-        alt='Locandina'
-        className='poster' />
+      <div className="side">
+        <img
+          src={`${config.baseUrl}/angwt/${event.Picture}`}
+          alt='Locandina'
+          className='poster' />
+        <p className='director'>
+          <span>Regia</span>
+          <span className='capitalize'>{event.Director.toLowerCase()}</span>
+        </p>
+        {
+          event.Actors.trim().length > 0 &&
+            <p className='actors'>
+              <span>Attori</span>
+              {event.Actors}
+            </p>
+        }
+        <p className='duration'>
+          <span>Durata</span>
+          {formatDuration(event.Days[0].Performances[0].Duration)}
+        </p>
+      </div>
       <div className='content'>
         <h1 className='title'>{event.Title}</h1>
         <div className='info'>
           <p className='year'>{event.Year}</p>
-          <p className='category'>{event.Category.toLowerCase()}</p>
+          <p className='category capitalize'>{event.Category.toLowerCase()}</p>
           {
             event.MovieId.trim().length > 0
               ? <Link href={event.MovieId} target='_blank' className='button'>
@@ -111,25 +141,15 @@ function Event({ event }: { event: Event }) {
                 },
               ).format;
 
-              const formatTime = Intl.DateTimeFormat(
-                'it-IT',
-                {
-                  hour: '2-digit',
-                  minute: '2-digit',
-                },
-              ).format;
-
               return (
                 <div key={day.Day} className='day'>
                   <p>{formatDate(date)}</p>
                   <div className='performances'>
                     {
                       day.Performances.map((performance) => {
-                        const startTime = new Date(performance.StartTime);
-
                         return (
                           <span key={performance.PerformanceId}>
-                            {formatTime(startTime)}
+                            {performance.Time}
                           </span>
                         );
                       })
