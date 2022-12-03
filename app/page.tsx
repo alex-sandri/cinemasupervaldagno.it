@@ -103,7 +103,7 @@ function Event({ event }: { event: Event }) {
               const date = new Date(day.Day);
 
               const formatDate = Intl.DateTimeFormat(
-                undefined,
+                'it-IT',
                 {
                   weekday: 'long',
                   day: 'numeric',
@@ -113,7 +113,7 @@ function Event({ event }: { event: Event }) {
               ).format;
 
               const formatTime = Intl.DateTimeFormat(
-                undefined,
+                'it-IT',
                 {
                   hour: '2-digit',
                   minute: '2-digit',
