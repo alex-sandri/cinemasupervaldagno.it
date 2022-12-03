@@ -78,7 +78,6 @@ main {
 }
 
 .Event .poster {
-  width: max-content;
   max-height: 20rem;
   border-radius: 0.5rem;
 }
