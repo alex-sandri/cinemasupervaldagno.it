@@ -108,7 +108,6 @@ function Event({ event }: { event: Event }) {
                   weekday: 'long',
                   day: 'numeric',
                   month: 'long',
-                  timeZone: 'Europe/Rome',
                 },
               ).format;
 
@@ -117,7 +116,6 @@ function Event({ event }: { event: Event }) {
                 {
                   hour: '2-digit',
                   minute: '2-digit',
-                  timeZone: 'Europe/Rome',
                 },
               ).format;
 
