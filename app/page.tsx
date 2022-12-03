@@ -98,21 +98,23 @@ function Event({ event }: { event: Event }) {
           src={`${config.baseUrl}/angwt/${event.Picture}`}
           alt='Locandina'
           className='poster' />
-        <p className='director'>
-          <span>Regia</span>
-          <span className='capitalize'>{event.Director.toLowerCase()}</span>
-        </p>
-        {
-          event.Actors.trim().length > 0 &&
-            <p className='actors'>
-              <span>Attori</span>
-              {event.Actors}
-            </p>
-        }
-        <p className='duration'>
-          <span>Durata</span>
-          {formatDuration(event.Days[0].Performances[0].Duration)}
-        </p>
+        <div className='side-info'>
+          <p className='director'>
+            <span>Regia</span>
+            <span className='capitalize'>{event.Director.toLowerCase()}</span>
+          </p>
+          {
+            event.Actors.trim().length > 0 &&
+              <p className='actors'>
+                <span>Attori</span>
+                {event.Actors}
+              </p>
+          }
+          <p className='duration'>
+            <span>Durata</span>
+            {formatDuration(event.Days[0].Performances[0].Duration)}
+          </p>
+        </div>
       </div>
       <div className='content'>
         <h1 className='title'>{event.Title}</h1>

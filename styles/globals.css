@@ -197,4 +197,15 @@ main {
     align-items: center;
     flex-direction: column;
   }
+
+  .Event .side-info {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .Event .side-info > * {
+    flex: 1;
+
+    text-align: center;
+  }
 }
