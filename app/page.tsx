@@ -162,7 +162,14 @@ function Event({ event }: { event: Event }) {
             })
           }
         </div>
-        <p className='description'>{event.Description}</p>
+        <p className='description'>
+          {
+            event.Description
+              .replaceAll('\\"', '"')
+              .replaceAll('\\r\\n', '\n')
+              .trim()
+          }
+        </p>
         <Link href={purchaseUrl} target='_blank' className='button'>
           Acquista il tuo biglietto
         </Link>

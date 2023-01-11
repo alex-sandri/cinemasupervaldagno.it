@@ -155,6 +155,8 @@ main {
 
 .Event .description {
   margin: 0;
+
+  white-space: break-spaces;
 }
 
 .Event .days {
